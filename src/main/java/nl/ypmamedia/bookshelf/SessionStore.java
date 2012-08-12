@@ -10,7 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import nl.ypmamedia.bookshelf.model.Book;
+import nl.ypmamedia.bookshelf.business.Book;
 
 /**
  *
