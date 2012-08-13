@@ -1,7 +1,11 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
 
     <body>
 
@@ -12,10 +16,33 @@
             </ui:define>
 
             <ui:define name="content">
-                
-                <a href="http://localhost:8080/bookshelf/frontcontroller/wat">Increase payload</a>
-                
-                Payload: #{sessionStore.payload}
+		<h:form>
+                 <rich:panel>
+            <f:facet name="header">
+                <h:panelGroup>
+                    <h:outputText value="Enter book:" />
+                    <a4j:status>
+                        <f:facet name="start">
+                            <h:graphicImage value="/images/ai.gif" style="height:12px;width:12px;" alt="ai" />
+                        </f:facet>
+                    </a4j:status>
+                </h:panelGroup>
+            </f:facet>
+                <h:panelGrid columns="3">
+                <h:outputText value="Name:" />
+                <h:inputText value="#{index.book.title}" id="name">
+                    <rich:validator />
+                </h:inputText>
+                <rich:message for="name" />
+		</h:panelGrid>
+		     <a4j:commandLink action="#{index.save()}" value="Save" render="booklist"/>
+	    </rich:panel>
+		</h:form>
+		
+		<rich:list value="#{index.books}" var="book" id="booklist" type="ordered">
+		    <h:outputText value="#{book.title}"/>
+		</rich:list>
+		
             </ui:define>
 
             <ui:define name="bottom">

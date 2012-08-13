@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.validation.constraints.Size;
 import lombok.Data;
 
 /**
@@ -29,6 +30,7 @@ public class Book implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
+	 @Size(min=1, max=10)
     private String title;
     
     @ManyToOne
