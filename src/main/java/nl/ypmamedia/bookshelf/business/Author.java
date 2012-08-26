@@ -1,27 +1,31 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package nl.ypmamedia.bookshelf.business;
 
-import java.io.Serializable;
 import javax.persistence.Entity;
+import java.io.Serializable;
 import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Column;
+import javax.persistence.Version;
+
 import lombok.Data;
 
-/**
- *
- * @author Christiaan
- */
-@Entity @Data
+@Entity
+@Data
 public class Author implements Serializable {
-    
-      @Id
-    private Long id;
-    
-    private String name;
-  
+	@Id
+	private @GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", updatable = false, nullable = false)
+	Long id = null;
 
-   
-    
+	@Version
+	private @Column(name = "version")
+	int version = 0;
+
+	@Column
+	private String name;
+	
+	public String toString(){
+		return name;
+	}
 }
