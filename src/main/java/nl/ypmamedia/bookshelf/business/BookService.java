@@ -19,10 +19,14 @@ public class BookService {
     EntityManager em;
     
     public void save(Book book){
-        em.persist(book);
+        em.merge(book);
     }
     
     public List<Book> getBooks(){
         return em.createNamedQuery(Book.FIND_ALL).getResultList();
     }
+
+	public Book findBookById(Long bookId) {
+		return em.find(Book.class, bookId);
+	}
 }

@@ -1,55 +1,68 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:a4j="http://richfaces.org/a4j"
-      xmlns:rich="http://richfaces.org/rich">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:a4j="http://richfaces.org/a4j"
+		xmlns:rich="http://richfaces.org/rich">
+
+
+    <f:metadata>
+	<f:viewParam name="id" value="#{index.bookId}"   />
+	<f:event type="preRenderView" listener="#{index.retrieve}"/>
+    </f:metadata>
 
     <body>
 
         <ui:composition template="./WEB-INF/basis.xhtml">
 
             <ui:define name="top">
-                top
+                bookShelf
             </ui:define>
 
             <ui:define name="content">
-		<h:form>
-                 <rich:panel>
-            <f:facet name="header">
-                <h:panelGroup>
-                    <h:outputText value="Enter book:" />
-                    <a4j:status>
-                        <f:facet name="start">
-                            <h:graphicImage value="/images/ai.gif" style="height:12px;width:12px;" alt="ai" />
-                        </f:facet>
-                    </a4j:status>
-                </h:panelGroup>
-            </f:facet>
-                <h:panelGrid columns="3">
-                <h:outputText value="Name:" />
-                <h:inputText value="#{index.book.title}" id="name">
-                    <rich:validator />
-                </h:inputText>
-                <rich:message for="name" />
-		</h:panelGrid>
-		     <a4j:commandLink action="#{index.save()}" value="Save" render="booklist"/>
-	    </rich:panel>
+
+		<h:messages globalOnly="true"/>
+
+		<h:form prependId="false" id="form">
+		    <rich:panel>
+			<f:facet name="header">
+			    <h:panelGroup>
+				<h:outputText value="Enter book:" />
+				<a4j:status>
+				    <f:facet name="start">
+					<h:graphicImage value="/images/ai.gif" style="height:12px;width:12px;" alt="ai" />
+				    </f:facet>
+				</a4j:status>
+			    </h:panelGroup>
+			</f:facet>
+			<h:panelGrid columns="3" id="bookform">
+			    <h:outputText value="Name:" />
+			    <h:inputText value="#{index.book.title}" id="name">
+				<rich:validator />
+			    </h:inputText>
+			    <rich:message for="name" id="booknamemessage"/>
+			</h:panelGrid>
+			<a4j:commandLink id="savebook" action="#{index.save()}" value="Save" render="booklist"/>
+			<h:commandLink id="cancelbook" action="#{index.cancel()}" value="Cancel" />
+		    </rich:panel>
 		</h:form>
-		
+
 		<rich:list value="#{index.books}" var="book" id="booklist" type="ordered">
-		    <h:outputText value="#{book.title}"/>
+		    <h:outputLink value="index.xhtml">
+			<h:outputText value="#{book.title}"/>
+			<f:param name="id" value="#{book.id}"/>
+		    </h:outputLink>
 		</rich:list>
-		
+
             </ui:define>
 
             <ui:define name="bottom">
-                bottom
+                YpmaMedia
             </ui:define>
 
         </ui:composition>
 
     </body>
-</html>
+</ui:composition>
